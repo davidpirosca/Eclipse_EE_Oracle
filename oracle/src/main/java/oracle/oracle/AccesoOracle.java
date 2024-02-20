@@ -41,4 +41,40 @@ public class AccesoOracle {
 			e.printStackTrace();
 		}
 	}
+	
+	void insertarAlumno(String query) {
+		try {
+			Statement st = con.createStatement();
+			ResultSet resul = st.executeQuery(query);
+			resul.close();
+			st.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	void borrarAlumnoPorNombre(String nombreAlumno) {
+	    try {
+	        // Crea la sentencia SQL para borrar el alumno por nombre
+	        String query = "DELETE FROM misAlumnos WHERE DATOS_PERSONALES.NOMBRE = '" + nombreAlumno + "'";
+
+	        // Crea la declaración y ejecuta la sentencia
+	        Statement st = con.createStatement();
+	        int filasAfectadas = st.executeUpdate(query);
+
+	        // Verifica si se ha borrado algún alumno
+	        if (filasAfectadas > 0) {
+	            System.out.println("Alumno '" + nombreAlumno + "' borrado exitosamente.");
+	        } else {
+	            System.out.println("No se encontró ningún alumno con el nombre '" + nombreAlumno + "'.");
+	        }
+
+	        // Cierra la conexión
+	        st.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 }
